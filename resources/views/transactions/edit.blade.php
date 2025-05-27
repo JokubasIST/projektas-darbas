@@ -1,8 +1,10 @@
 @extends('layouts.app')
+
 @section('content')
 <h1>Redaguoti įrašą</h1>
 <form method="POST" action="{{ route('transactions.update', $transaction) }}">
-    @csrf @method('PUT')
+    @csrf
+    @method('PUT')
     <input type="number" step="0.01" name="amount" value="{{ $transaction->amount }}" required>
     <textarea name="description">{{ $transaction->description }}</textarea>
     <select name="category_id">

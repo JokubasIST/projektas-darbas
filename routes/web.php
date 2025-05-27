@@ -4,6 +4,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportController;
 
+
+
+
+
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::resource('transactions', TransactionController::class);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <h1>Naujas įrašas</h1>
 <form method="POST" action="{{ route('transactions.store') }}">
