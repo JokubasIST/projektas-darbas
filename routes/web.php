@@ -8,7 +8,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');});
 // Tik prisijungusiems vartotojams
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -19,10 +26,7 @@ Route::middleware([
     })->name('dashboard');
 
 
-    
-   Route::middleware(['auth'])->group(function () {
-    Route::resource('categories', CategoryController::class);
-    Route::resource('transactions', TransactionController::class);
-    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+
+   
 });
-});
+
