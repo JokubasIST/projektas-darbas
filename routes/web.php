@@ -1,40 +1,26 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ReportController;
 
-
-
-
-
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::resource('transactions', TransactionController::class);
-});
-
+// Public routes
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::middleware(['auth'])->group(function () {
-    Route::resource('categories', CategoryController::class);
-    Route::resource('transactions', TransactionController::class);
-    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');});
-// Tik prisijungusiems vartotojams
-
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+// Authenticated routes (using both auth middleware variants)
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+    // Dashboard route
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-
-
-   
+    // Resource routes
+    Route::resource('categories', CategoryController::class);
+    Route::resource('transactions', TransactionController::class);
+    
+    // Reports route
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 });
-
